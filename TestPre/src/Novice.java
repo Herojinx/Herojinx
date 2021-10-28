@@ -1,54 +1,51 @@
-
 import java.util.Scanner;
-class Admin // 전문가
+class Admin
 {
    public Admin[] stat;
-   int attack ;
-   int defense ;
-   int moving ;
-   Admin(int attack , int defense , int moving){this.attack = attack;this.defense = defense;this.moving = moving;}
-   Admin(){};
+   int attack, defense, moving;
+   public Admin(int attack , int defense , int moving){this.attack = attack;this.defense = defense;this.moving = moving;}
+   public Admin(){};
+   public int attack() {return attack;}
+   public int defense() {return defense;}
+   public int moving() {return moving;}
+
+   public Admin[] stat() {return stat;}
    
-   
-   void consol()
+   public Admin stat1;
+   public void consol()
    {
+	   
       stat = new Admin [3];
-      System.out.println("작업자 관리공간입니다.");
-      System.out.println("이곳은 직업들의 스탯을 조정할 수 있습니다.");
-      System.out.println("조정 후에 게임이 실행됩니다.");
-      System.out.print("캐릭터를 선택해주십시오. ( 현재 : 전사 / 마법사 / 상인 ) / 멈추고 싶다면, 'stop' 타이핑 >>> ");
+      stat1 = new Admin(10, 10, 4); // 전사 기본스탯
+      System.out.print("스탯을 조정할 캐릭터를 선택해주십시오. ( 현재 : 전사 / 마법사 / 상인 ) / 멈추고 싶다면, 'stop' 타이핑 >>> ");
       Scanner sc = new Scanner(System.in);
       while(true)
       {
          String answer3 = sc.next();
          if(answer3.equals("전사"))
          {
-            int attack = sc.nextInt();
-            int defense = sc.nextInt();
-            int moving = sc.nextInt();
-            stat[0] = new Admin(attack , defense , moving);
-            for(int i = 0; i < stat.length;i++)
-            System.out.println(stat[i].attack + stat[i].defense + stat[i].moving);
-            continue;
+            int attack1 = sc.nextInt();
+            int defense1 = sc.nextInt();
+            int moving1 = sc.nextInt();   
+            stat1 = new Admin(attack1 , defense1 , moving1);   
+            System.out.print("조정을 그만하시겠습니까? (y/아무키) >>> ");
+            String a = sc.next();
+            if(a.equals("y"))
+            {
+               System.out.println("게임을 실행합니다.");
+               start();            
+            }
+            else
+            {
+               continue;
+            }
          }
          if(answer3.equals("마법사"))
-         {
-            int attack = sc.nextInt();
-            int defense = sc.nextInt();
-            int moving = sc.nextInt();
-            stat[1] = new Admin(attack , defense , moving);
-         }
+         {}
          if(answer3.equals("상인"))
-         {
-            int attack = sc.nextInt();
-            int defense = sc.nextInt();
-            int moving = sc.nextInt();
-            stat[2] = new Admin(attack , defense , moving);
-         }
+         {}
          if(answer3.equals("stop"))
-         {
-            break;
-         }
+         {}
          else
          {
             System.out.println("다시 선택해주시기 바랍니다.");
@@ -56,9 +53,14 @@ class Admin // 전문가
       }
       
    }
-   void start()
+   public void start()
    {
       Scanner sc= new Scanner(System.in);
+      System.out.println("입렺모");
+      int num1 = sc.nextInt();
+      int num2 = sc.nextInt();
+      int num3 = sc.nextInt();
+	  stat1 = new Admin(num1, num2, num3);
       System.out.println("JustPRG 게임에 오신 것을 환영합니다.");
       System.out.println("<<<------------------------>>>");
       System.out.println("<<<----------로딩중---------->>>");
@@ -72,74 +74,52 @@ class Admin // 전문가
       {
          System.out.println("직업은 현재 전사, 마법사, 상인이 존재합니다.");
          System.out.print("조회하고 싶은 직업을 입력하시기 바랍니다. >>> ");
-         String answer2 = sc.next();
-         if(answer2.equals("전사"))
+         while(true)
          {
+            String answer2 = sc.next();
+            if(answer2.equals("전사"))
+            {
+               Warrior w = new Warrior(attack, defense, moving);
+               w.view();
+            }
             
+            }
          }
-         if(answer2.equals("마법사"))
-         {
-            //
-         }
-         if(answer2.equals("상인"))
-         {
-            //
-         }
-         
-      }
-      if(answer1 == 2)
-      {
-         
-      }
-      else
-      {
-         System.out.println("종료합니다.");
-      }
    }
-   
 }
 class Warrior extends Admin //전사
 {
-   public Admin[] stat;
-   Warrior(int attack , int defense , int moving)
-   {
-      super(attack,defense,moving);
-   }
-   void view()
-   {
-      System.out.println("전사직업입니다.");
-      System.out.println();
-   }
    
-}
-class Magician extends Admin// 마법사
-{
-   public Admin[] stat;
-   Magician(int attack , int defense , int moving)
+   public Warrior(int attack , int defense , int moving){super(attack,defense,moving);}public Warrior(){};
+   public Warrior(Admin []stat)
    {
-      super(attack,defense,moving);
+      super(stat);
+   }
+   public void view()
+   {
+	   
+      System.out.println("전사직업입니다.");
+      System.out.println("초기레벨 스탯은 " + "공격력은 " + stat1.attack + "이고, 방어력은 " + stat1.defense + "이며, 이동속도는 " + stat1.moving + "입니다.");
    }
 }
-class Merchant extends Admin// 상인
+
+class Novice
 {
-   public Admin[] stat;
-   Merchant(int attack , int defense , int moving)
+
+   public static void main(String[] args) 
    {
-      super(attack,defense,moving);
-   }
-}
-class Novice{
-	public static void main(String[] args) {
       Scanner sc = new Scanner(System.in);
       Admin a = new Admin();
       System.out.print("콘솔 작업을 통해 직업들의 기본스탯을 설정하시겠습니까?(y/n) >>> ");
       String answer = sc.next();
-      if(answer.equals("y")) { a.consol(); }
+      if(answer.equals("y")){a.consol();}
       if(answer.equals("n")) 
-      { 
-         System.out.print("게임을 시작하시겠습니까?(y/n) >>> "); 
+      {System.out.print("게임을 시작하시겠습니까?(y/n) >>> "); 
          String answer1 = sc.next();
-         if(answer1.equals("y")){a.start();}
+         if(answer1.equals("y"))
+         {
+            a.start();
+         }
          else{System.out.println("종료합니다");}
       }
    }
